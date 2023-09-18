@@ -28,25 +28,6 @@
         android:title="@string/settings_enable" />
 
     <PreferenceCategory
-        android:title="@string/category_behaviour"
-        android:key="category_behaviour">
-
-        <SwitchPreference
-            android:key="pass_to_security_view"
-            android:defaultValue="false"
-            android:title="@string/pass_to_security_view_title"
-            android:summary="@string/pass_to_security_view_summary"
-            android:dependency="flipflap_enable" />
-
-        <SwitchPreference
-            android:key="use_high_touch_sensitivity"
-            android:defaultValue="false"
-            android:title="@string/use_high_touch_sensitivity_title"
-            android:summary="@string/use_high_touch_sensitivity_summary"
-            android:dependency="flipflap_enable" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:title="@string/category_design"
         android:key="category_design">
 

@@ -46,9 +46,7 @@ public class FlipFlapSettingsFragment extends PreferenceFragment
     public final String TAG = "FlipFlapSettings";
 
     private final String KEY_ENABLE = "flipflap_enable";
-    private final String KEY_BEHAVIOUR_CATEGORY = "category_behaviour";
     private final String KEY_DESIGN_CATEGORY = "category_design";
-    private final String KEY_TOUCH_SENSITIVITY = "use_high_touch_sensitivity";
 
     private MainSwitchPreference mSwitchBar;
 
@@ -67,12 +65,6 @@ public class FlipFlapSettingsFragment extends PreferenceFragment
             PreferenceCategory designCategory =
                     getPreferenceScreen().findPreference(KEY_DESIGN_CATEGORY);
             getPreferenceScreen().removePreference(designCategory);
-        }
-        if (!FlipFlapUtils.getHighTouchSensitivitySupported(getContext())) {
-            PreferenceCategory behaviourCategory =
-                    getPreferenceScreen().findPreference(KEY_BEHAVIOUR_CATEGORY);
-            SwitchPreference touchSensitivityPref = findPreference(KEY_TOUCH_SENSITIVITY);
-            behaviourCategory.removePreference(touchSensitivityPref);
         }
 
         mSwitchBar.setChecked(isEventReceiverEnabled());
