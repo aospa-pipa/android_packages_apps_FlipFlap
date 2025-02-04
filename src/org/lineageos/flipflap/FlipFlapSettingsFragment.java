@@ -24,7 +24,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.provider.Settings;
+import android.util.Log;
 
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
@@ -44,6 +46,7 @@ public class FlipFlapSettingsFragment extends SettingsBasePreferenceFragment
 
     private final String KEY_ENABLE = "flipflap_enable";
     private final String KEY_DESIGN_CATEGORY = "category_design";
+    private final String PROP_BLOCK_LID_CHANGED_STATE = "persist.debug.disable_lid_state";
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -90,6 +93,12 @@ public class FlipFlapSettingsFragment extends SettingsBasePreferenceFragment
                 : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
         context.getPackageManager().setComponentEnabledSetting(cn, state,
                 PackageManager.DONT_KILL_APP);
+        try {
+            SystemProperties.set(PROP_BLOCK_LID_CHANGED_STATE, Boolean.toString(!enabled));
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "Could not set property " + PROP_BLOCK_LID_CHANGED_STATE
+                                                 + " to " + Boolean.toString(!enabled), e);
+        }
     }
 
     private void setupTimeoutPreference(String key) {
