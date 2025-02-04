@@ -24,6 +24,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.SystemProperties;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.CompoundButton;
@@ -46,6 +47,7 @@ public class FlipFlapSettingsFragment extends PreferenceFragment
 
     private final String KEY_ENABLE = "flipflap_enable";
     private final String KEY_DESIGN_CATEGORY = "category_design";
+    private final String PROP_BLOCK_LID_CHANGED_STATE = "persist.debug.disable_lid_state";
 
     private MainSwitchPreference mSwitchBar;
 
@@ -95,6 +97,12 @@ public class FlipFlapSettingsFragment extends PreferenceFragment
                 : PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
         getContext().getPackageManager().setComponentEnabledSetting(cn, state,
                 PackageManager.DONT_KILL_APP);
+        try {
+            SystemProperties.set(PROP_BLOCK_LID_CHANGED_STATE, Boolean.toString(!isChecked));
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "Could not set property " + PROP_BLOCK_LID_CHANGED_STATE
+                                                 + " to " + Boolean.toString(!isChecked), e);
+        }
 
         mSwitchBar.setChecked(isChecked);
     }
