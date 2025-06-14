@@ -22,6 +22,7 @@ package org.lineageos.flipflap;
 
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.SystemProperties;
@@ -34,6 +35,7 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceScreen;
+import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
 import com.android.settingslib.widget.MainSwitchPreference;
@@ -68,7 +70,12 @@ public class FlipFlapSettingsFragment extends PreferenceFragment
             getPreferenceScreen().removePreference(designCategory);
         }
 
-        mSwitchBar.setChecked(isEventReceiverEnabled());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
+        if (!prefs.contains(KEY_ENABLE)) {
+            mSwitchBar.setChecked(false);
+        } else {
+            mSwitchBar.setChecked(isEventReceiverEnabled());
+        }
     }
 
     @Override
