@@ -26,6 +26,7 @@
 
         <receiver
             android:name=".EventReceiver"
+            android:enabled="false"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.LID_STATE_CHANGED" />
@@ -40,7 +41,7 @@
         <activity
             android:name=".FlipFlapSettingsActivity"
             android:label="@string/settings_name"
-            android:enabled="false"
+            android:enabled="true"
             android:exported="true">
 
             <intent-filter>
